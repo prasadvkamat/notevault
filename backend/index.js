@@ -1,15 +1,20 @@
-const { connect } = require('mongoose');
+const express = require('express');
 const connectToMongo = require('./dbconnect');
-const express = require('express')
+const app = express();
+const port = 3000;
 
 connectToMongo();
+app.use(express.json());
 
-const app = express()
-const port = 3000
+
 app.get('/', (req, res) => {
-    res.send('hello world')
+    res.send('Hello World!');
+});
 
-})
+// Available routes
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/notes', require('./routes/notes'));
+
 app.listen(port, () => {
-    console.log(`app listning at http://localhost:${port}`)
-})
+    console.log(`App listening at http://localhost:${port}`);
+});
