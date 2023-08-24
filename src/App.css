@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+.translucent-search {
+  background-color: rgba(255, 255, 255, 0.5); /* Adjust alpha (0.5) for desired transparency */
+}
+/* //for the fixed height of form desc area  */
+.fixed-textarea {
+  height: 75px; /* You can adjust the height as needed */
+  resize: none;
+}
+#form-container{
+  width: 60%;
+}
+#noteitem-container{
+  width: 70%;
+}
+i:hover{
+  cursor: pointer;
+}
