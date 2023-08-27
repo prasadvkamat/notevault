@@ -60,28 +60,28 @@
 //     };
 
 //     // update a note
-//     const editNote = async (id, title, description, tag) => {
-//         // API Call
-//         const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRlMjU1NTZhNzFmNzZkMjcxY2RkYzFjIn0sImlhdCI6MTY5MjU1NjMxNn0.VkS9iIC5LjTH4ChYA3QV-zjmxj99qQ5vTB37Mpg5l04"
-//             },
-//             body: JSON.stringify({ title, description, tag })
-//         });
-//         const json = response.json();
+// const editNote = async (id, title, description, tag) => {
+//     // API Call
+//     const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRlMjU1NTZhNzFmNzZkMjcxY2RkYzFjIn0sImlhdCI6MTY5MjU1NjMxNn0.VkS9iIC5LjTH4ChYA3QV-zjmxj99qQ5vTB37Mpg5l04"
+//         },
+//         body: JSON.stringify({ title, description, tag })
+//     });
+//     const json = response.json();
 
-//         // Logic to edit in client
-//         for (let index = 0; index < note.length; index++) {
-//             const element = note[index];
-//             if (element._id === id) {
-//                 element.title = title;
-//                 element.description = description;
-//                 element.tag = tag;
-//             }
+//     // Logic to edit in client
+//     for (let index = 0; index < note.length; index++) {
+//         const element = note[index];
+//         if (element._id === id) {
+//             element.title = title;
+//             element.description = description;
+//             element.tag = tag;
 //         }
-//     };
+//     }
+// };
 
 //     return (
 //         <NoteContext.Provider value={{ note, addnote, deletenote, editNote, getnotes }}>
@@ -222,26 +222,70 @@ const NoteState = (props) => {
         }
     };
 
+    // const editNote = async (id, title, description, tag) => {
+    //     // API Call
+    //     const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+    //         method: 'PUT',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             auth_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRlMjU1NTZhNzFmNzZkMjcxY2RkYzFjIn0sImlhdCI6MTY5MjU1NjMxNn0.VkS9iIC5LjTH4ChYA3QV-zjmxj99qQ5vTB37Mpg5l04"
+    //         },
+    //         body: JSON.stringify({ title, description, tag })
+    //     });
+    //     const json = await response.json();
+    //     console.log(json)
+    //     let newNote = JSON.parse(JSON.stringify(note))
+       
+    //     for (let index = 0; index < newNote.length; index++) {
+    //         const element = newNote[index];
+    //         if (element._id === id) {
+    //             newNote[index].title = title;
+    //             newNote[index].description = description;
+    //             newNote[index].tag = tag; 
+    //             break; 
+    //         }
+    //     }
+    //     setNote(newNote)
+    // };
     const editNote = async (id, title, description, tag) => {
-        try {
-            // Similar to your addnote function but with PUT request
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
+        // API Call 
+        const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            auth_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRlMjU1NTZhNzFmNzZkMjcxY2RkYzFjIn0sImlhdCI6MTY5MjU1NjMxNn0.VkS9iIC5LjTH4ChYA3QV-zjmxj99qQ5vTB37Mpg5l04"
+          },
+          body: JSON.stringify({title, description, tag})
+        });
+        const json = await response.json();
+        console.log(json)
+    
+         let newNotes = JSON.parse(JSON.stringify(note))
+        // Logic to edit in client
+        for (let index = 0; index < newNotes.length; index++) {
+          const element = newNotes[index];
+          if (element._id === id) {
+            newNotes[index].title = title;
+            newNotes[index].description = description;
+            newNotes[index].tag = tag; 
+            break; 
+          }
+        }  
+        setNote(newNotes);
+      }
+    
     const deletenote = async (id) => {
         const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
             method: 'DELETE',
             headers: {
-              'Content-Type': 'application/json',
-              auth_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRlMjU1NTZhNzFmNzZkMjcxY2RkYzFjIn0sImlhdCI6MTY5MjU1NjMxNn0.VkS9iIC5LjTH4ChYA3QV-zjmxj99qQ5vTB37Mpg5l04", 
+                'Content-Type': 'application/json',
+                auth_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRlMjU1NTZhNzFmNzZkMjcxY2RkYzFjIn0sImlhdCI6MTY5MjU1NjMxNn0.VkS9iIC5LjTH4ChYA3QV-zjmxj99qQ5vTB37Mpg5l04",
             }
-          });
-          console.log("deletingstarted")
-          const json = response.json();
-          console.log(json)
-          console.log("deleting done")
+        });
+        console.log("deletingstarted")
+        const json = response.json();
+        // console.log(json)
+        // console.log("deleting done")
         const newnotes = note.filter((note) => { return note._id !== id });
         setNote(newnotes);
     };

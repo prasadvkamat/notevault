@@ -253,8 +253,38 @@ router.post(
 );
 
 router.put("/updatenote/:id", fetchuser, async (req, res) => {
-    // Similar to your existing update code
-    // Make sure to validate user ownership and handle errors
+    const { title, description, tag } = req.body;
+    try {
+        const newNote = {};
+        if (title) {
+            newNote.title = title;
+        }
+        if (description) {
+            newNote.description = description;
+        }
+        if (tag) {
+            newNote.tag = tag;
+        }
+        let note = await Note.findById(req.params.id);
+        if (!note) {
+            // return res.send("first error")
+            return res.status(404).send("Not Found");
+        }
+        if (note.user.toString() !== req.user.id) {
+            // return res.send("second error")
+            return res.status(401).send("Not Allowed");
+        }
+        note = await Note.findByIdAndUpdate(
+            req.params.id,
+            { $set: newNote },
+            { new: true }
+        );
+        return res.json({ note });
+    } catch (error) {
+        // return res.json({ note });
+        // console.error(error.message);
+        // return res.status(500).send("Internal Server Error");
+    }
 });
 
 router.delete('/deletenote/:id', fetchuser, async (req, res) => {

@@ -5,12 +5,12 @@ const Addnote = () => {
   const context = useContext(noteContext);
   const { addnote } = context;
 
-  const [note, setNote] = useState({ title: "", description: "", tag: "default" });
+  const [note, setNote] = useState({ title: "", description: "", tag: "" });
 
   const handleclick = (e) => {
     e.preventDefault();
     addnote(note.title, note.description, note.tag);
-    setNote({ title: "", description: "", tag: "default" });
+    setNote({ title: "", description: "", tag: "" });
   }
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value })
@@ -45,6 +45,19 @@ const Addnote = () => {
               name="description"
               rows="3"
               value={note.description}
+              onChange={onChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="tag" className="form-label d-flex justify-content-center funky-label">
+              add tags
+            </label>
+            <input
+              type="text"
+              id="tag"
+              name="tag"
+              className="form-control"
+              value={note.tag}
               onChange={onChange}
             />
           </div>
