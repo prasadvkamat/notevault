@@ -3,8 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 
 function Navbar() {
     let location = useLocation();
-    useEffect(()=>{
-    },[location]);
+    useEffect(() => {
+    }, [location]);
     return (
         <div>
             <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#ccc7fa" }}>
@@ -37,17 +37,10 @@ function Navbar() {
                             </li>
 
                         </ul>
-                        <form className="d-flex" role="search">
-                            <input
-                                className="form-control me-2 translucent-search"
-                                type="search"
-                                placeholder="Search"
-                                aria-label="Search"
-                            />
-                            <button className="btn btn-outline-success" style={{ backgroundColor: "black", color: "white" }} type="submit">
-                                Search
-                            </button>
-                        </form>
+                        <Link class="btn btn-primary mx-2" to="/login" role="button">Login</Link>
+                        <Link class="btn btn-primary" to="/signup" role="button">SignUp</Link>
+
+                        
                     </div>
                 </div>
             </nav>

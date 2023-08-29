@@ -53,3 +53,13 @@
 i:hover{
   cursor: pointer;
 }
+.outer-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.inner-box{
+  /* border: 2px solid black; */
+  height: 70vh;
+  width: 50%;
+}

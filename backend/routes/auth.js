@@ -10,12 +10,14 @@ const JWT_SECRET = "prasadkamat9844"
 
 // Create a user using POST "/api/auth", doesn't require authentication
 router.post('/createuser',
+
     //setting some validation rules using the express-validator in form of array
     [
         body('name', 'Enter a valid name').isLength({ min: 3 }),
         body('email', "Enter a valid Email").isEmail(),
         body('password', 'Password must have a minimum of 5 characters').isLength({ min: 5 }),
     ], async (req, res) => {
+        let success = false
         const errors = validationResult(req);//used to store any error which have came from validation results into error 
         //if error are not empty then we will display the error 
         if (!errors.isEmpty()) {
@@ -43,7 +45,8 @@ router.post('/createuser',
                 }
             }
             const a_token = jwt.sign(data, JWT_SECRET)
-            res.json({ a_token });
+            success = true
+            res.json({success, a_token });
         } catch (error) {
             //as we have mentioned every email must be unique in the models of the user this will help us to catch the error here
             if (error.code === 11000) {
@@ -62,6 +65,7 @@ router.post('/login', [
     body('email', 'Enter a valid email').isEmail(),
     body('password', 'Password cannot be blank').exists(),
 ], async (req, res) => {
+    let success = false
     //if there are initial errors we dont need to check them so direct catching error using validationresults
     const error = validationResult(req);
     if (!error.isEmpty()) {
@@ -84,7 +88,8 @@ router.post('/login', [
             }
         }
         const authtoken = jwt.sign(data, JWT_SECRET);
-        res.json({ authtoken })
+        success = true
+        res.json({success, authtoken })
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
