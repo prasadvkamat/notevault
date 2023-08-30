@@ -3,7 +3,7 @@ import noteContext from '../context_notes/notecontext';
 import Noteitem from './Noteitem';
 import Addnote from './Addnote';
 
-const Notes = () => {
+const Notes = (props) => {
     const context = useContext(noteContext);
     const { note, getnotes , editNote } = context;
     useEffect(() => {
@@ -17,12 +17,14 @@ const Notes = () => {
     const updateNote = (currentNote) => {
         ref.current.click();
         setNotes({ id: currentNote._id,etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag })
+        
     }
 
     const handleclick = (e) => {
         console.log("Updating the note...", notes)
         // e.preventDefault();
         editNote(notes.id,notes.etitle,notes.edescription,notes.etag)
+        props.showAlert("Notes Updated successfully","success")
         refclose.current.click()
     }
 
@@ -34,10 +36,8 @@ const Notes = () => {
 
     return (
         <>
-            <h2 className="container d-flex justify-content-center funky-heading my-4">
-                Your Written Creations - Dive into Your Notes
-            </h2>
-            <Addnote />
+            
+            <Addnote showAlert={props.showAlert} />
 
             {/* Button trigger modal */}
             <button
@@ -134,10 +134,13 @@ const Notes = () => {
             </div>
 
 
+            <h2 className="container d-flex justify-content-center my-4">
+                Your Notes
+            </h2>
             <div className="container d-flex justify-content-center">
                 <div id="noteitem-container" className='row my-4'>
                     {note.map((note) => {
-                        return <Noteitem key={note._id} note={note} updateNote={updateNote} />
+                        return <Noteitem key={note._id} note={note} updateNote={updateNote} showAlert={props.showAlert} />
                     })}
                 </div>
             </div>

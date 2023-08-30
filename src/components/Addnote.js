@@ -1,24 +1,38 @@
+
 import React, { useState, useContext } from 'react';
 import noteContext from '../context_notes/notecontext';
-
-const Addnote = () => {
+import "../context_notes/Addnote.css"
+const Addnote = (props) => {
   const context = useContext(noteContext);
   const { addnote } = context;
 
   const [note, setNote] = useState({ title: "", description: "", tag: "" });
+  
 
   const handleclick = (e) => {
     e.preventDefault();
-    addnote(note.title, note.description, note.tag);
-    setNote({ title: "", description: "", tag: "" });
-  }
+
+    if (note.title.length < 3) {
+      props.showAlert("Title must be at least 3 characters long", "danger");
+    } else if (note.description.length < 5) {
+      props.showAlert("Description must be at least 5 characters long", "danger");
+    } else {
+      addnote(note.title, note.description, note.tag);
+      setNote({ title: "", description: "", tag: "" });
+      props.showAlert("Notes added successfully", "success");
+    }
+}
+
+
+
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value })
   }
+
   return (
-    <>
-      <h3 id="home_title" className="container d-flex justify-content-center my-3">
-        "Note-vault: Elevate Your Ideas - Store and Sync Notes Securely"
+    <div className="add-note-container">
+      <h3 id="home_title" className="container d-flex justify-content-center"  style={{ marginTop: '35px' }}>
+        Elevate Your Ideas with Note-vault: Dive into Your Securely Synced Notes
       </h3>
       <div className="container card my-3">
         <form>
@@ -31,6 +45,7 @@ const Addnote = () => {
               id="title"
               name="title"
               className="form-control"
+              minLength={5}
               value={note.title}
               onChange={onChange}
             />
@@ -43,6 +58,7 @@ const Addnote = () => {
               className="form-control"
               id="description"
               name="description"
+              minLength={5}
               rows="3"
               value={note.description}
               onChange={onChange}
@@ -69,8 +85,9 @@ const Addnote = () => {
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 
 export default Addnote;
+

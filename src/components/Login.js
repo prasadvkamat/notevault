@@ -1,11 +1,13 @@
 
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../context_notes/LoginForm.css'; // Import your custom styles
 
 const LoginForm = (props) => {
     const [credentials, setCredentials] = useState({ email: "", password: "" });
     const [showPassword, setShowPassword] = useState(false);
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,11 +21,11 @@ const LoginForm = (props) => {
         const json = await response.json();
         console.log(json);
         if (json.success === true) {
-            // Save the auth token and redirect
             localStorage.setItem('token', json.authtoken);
             navigate("/");
+            props.showAlert("Logged In","success")
         } else {
-            props.showAlert("else","danger")
+            props.showAlert("Invalid email-id or password","danger")
         }
     }
 
@@ -36,14 +38,12 @@ const LoginForm = (props) => {
     }
 
     return (
-        <div className="outer-box">
-            <div className="inner-box">
+        <div className="login-container">
+            <div className="login-box">
+                <h1 className="login-title">Welcome to Note-vault</h1>
+                <h5 className="login-subtitle">Chill out and log in with your email</h5>
                 <form onSubmit={handleSubmit}>
-                    <center>
-                        <h1>Welcome to Note-vault</h1>
-                        <h5>Chill out and log in with your email</h5>
-                    </center>
-                    <div className="mb-3 my-4">
+                    <div className="form-group">
                         <label htmlFor="email" className="form-label">Email address</label>
                         <input
                             type="email"
@@ -54,9 +54,8 @@ const LoginForm = (props) => {
                             name="email"
                             aria-describedby="emailHelp"
                         />
-                        <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
                     </div>
-                    <div className="mb-3">
+                    <div className="form-group">
                         <label htmlFor="password" className="form-label">Password</label>
                         <div className="input-group">
                             <input
@@ -69,14 +68,14 @@ const LoginForm = (props) => {
                             />
                             <button
                                 type="button"
-                                className="btn btn-outline-secondary"
+                                className="show-password-btn"
                                 onClick={toggleShowPassword}
                             >
                                 {showPassword ? "🙈 Hide" : "👀 Show"}
                             </button>
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-primary">Login</button>
+                    <button type="submit" className="btn btn-primary login-btn">Login</button>
                 </form>
             </div>
         </div>
@@ -84,5 +83,4 @@ const LoginForm = (props) => {
 }
 
 export default LoginForm;
-
 

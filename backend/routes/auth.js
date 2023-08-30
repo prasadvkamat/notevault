@@ -44,9 +44,9 @@ router.post('/createuser',
                     id: user.id
                 }
             }
-            const a_token = jwt.sign(data, JWT_SECRET)
+            const authtoken = jwt.sign(data, JWT_SECRET);
             success = true
-            res.json({success, a_token });
+            res.json({ success, authtoken })
         } catch (error) {
             //as we have mentioned every email must be unique in the models of the user this will help us to catch the error here
             if (error.code === 11000) {
@@ -89,7 +89,7 @@ router.post('/login', [
         }
         const authtoken = jwt.sign(data, JWT_SECRET);
         success = true
-        res.json({success, authtoken })
+        res.json({ success, authtoken })
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");

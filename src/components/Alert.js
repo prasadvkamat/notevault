@@ -6,13 +6,8 @@ function Alert(props) {
   return lower.charAt(0).toUpperCase() + lower.slice(1);
  };
 
-//  const alertstyle = {
-//     backgroundColor: props.mode === "dark" ? "#08325c" : "#ffffff", // Specify colors for both modes
-//     // height: '6px'
-//  };
-
  return (
-  <div >
+  <div style={{height:'0px'}}>
    {props.alert &&
     <div
      className={`alert alert-${props.alert.type} alert-dismissible fade show`}
