@@ -1,0 +1,35 @@
+.about {
+    height: 75vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 2px;
+  }
+  
+  .about-content {
+    flex: 1;
+    padding-right: 20px;
+  }
+  
+  .about-links {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .about-links a {
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .about-links a:hover {
+    color: #0056b3;
+  }
+  

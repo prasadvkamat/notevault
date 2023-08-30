@@ -1,13 +1,19 @@
 import React, { useEffect } from 'react'
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation,useNavigate } from "react-router-dom";
 
 function Navbar() {
+    let navigate = useNavigate()
     let location = useLocation();
     useEffect(() => {
     }, [location]);
+
+    const handlelogout = ()=>{
+        localStorage.removeItem('token')
+        navigate('/login')
+    }
     return (
         <div>
-            <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#ccc7fa" }}>
+            <nav className="navbar navbar-expand-lg" style={{ backgroundColor: " #ccc7fa" }}>
                 <div className="container-fluid">
                     <Link className="navbar-brand" to="/">
                         Note-Vault
@@ -37,10 +43,15 @@ function Navbar() {
                             </li>
 
                         </ul>
-                        <Link class="btn btn-primary mx-2" to="/login" role="button">Login</Link>
-                        <Link class="btn btn-primary" to="/signup" role="button">SignUp</Link>
+                        {!localStorage.getItem('token') ? (
+                            <>
+                                <Link className="btn btn-primary mx-2" to="/login" role="button">Login</Link>
+                                <Link className="btn btn-primary" to="/signup" role="button">SignUp</Link>
+                            </>
+                        ) : (
+                            <button onClick={handlelogout} className="btn btn-primary">Logout</button>
+                        )}
 
-                        
                     </div>
                 </div>
             </nav>

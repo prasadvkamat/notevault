@@ -1,0 +1,19 @@
+.custom-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.custom-card:hover {
+    transform: scale(1.05);
+}
+
+.custom-header {
+    background-color:  #f8e8a2; /* Teal color */
+    color:  #333333;
+    font-weight: bold;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
